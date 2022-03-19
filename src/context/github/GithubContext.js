@@ -20,76 +20,6 @@ export const GithubProvider = ({ children }) => {
   // define the github reducer
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
-  // get search results
-  const searchUsers = async (text) => {
-    setIsLoading()
-
-    const params = new URLSearchParams({
-      q: text
-    })
-
-    const res = await fetch(`
-      ${GITHUB_URL}/search/users?${ params }`,
-      { headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      } 
-    })
-
-    const { items } = await res.json()
-
-    dispatch({
-      type: 'GET_USERS',
-      payload: items,
-    })
-  }
-
-  // get user data
-  const getUser = async (login) => {
-    setIsLoading()
-
-    const response = await fetch(`
-      ${GITHUB_URL}/users/${ login }`,
-      { headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      } 
-    })
-
-    if (response.status === 404) {
-      window.location = '/notfound'
-    } else {
-      const data = await response.json()
-      
-      dispatch({
-        type: 'GET_USER',
-        payload: data,
-      })
-    }
-  }
-
-  // get user repos
-  const getUserRepos = async (login) => {
-    setIsLoading()
-
-    const params = new URLSearchParams({
-      sort: 'created',
-      per_page: 10,
-    })
-
-    const res = await fetch(`
-      ${GITHUB_URL}/users/${ login }/repos?${ params }`,
-      { headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      } 
-    })
-
-    const data = await res.json()
-
-    dispatch({
-      type: 'GET_REPOS',
-      payload: data,
-    })
-  }
-
   // clear search results
   const clearSearchUsers = () => {
     dispatch({
@@ -104,16 +34,14 @@ export const GithubProvider = ({ children }) => {
     })
   }
 
-  // return its values
+  // return its values,
+  // we can pass all the states at once
+  // with the spread operator ...state,
+  // and all dispatch at once as well
   return <GithubContext.Provider value={{
-    users: state.users,
-    user: state.user,
-    repos: state.repos,
-    isLoading: state.isLoading,
-    searchUsers,
+    ...state,
+    dispatch,
     clearSearchUsers,
-    getUser,
-    getUserRepos,
   }}>
     { children }
   </GithubContext.Provider>
