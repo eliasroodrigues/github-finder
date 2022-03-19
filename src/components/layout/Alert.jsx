@@ -9,7 +9,6 @@ import AlertContext from '../../context/alert/AlertContext'
  */
 
 function Alert() {
-  // brings the alert state from AlertContext
   const { alert } = useContext(AlertContext)
 
   return (

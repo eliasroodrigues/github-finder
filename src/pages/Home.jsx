@@ -4,7 +4,7 @@ import UserSearch from '../components/users/UserSearch'
 /*
  * Home Page
  *
- * @return <div>
+ * @return <>
  */
 
 function Home() {

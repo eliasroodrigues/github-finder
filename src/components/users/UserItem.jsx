@@ -1,5 +1,13 @@
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+
+/*
+ * User Item Component
+ *
+ * @param {user} object
+ *
+ * @return <div>
+ */
 
 function UserItem({ user: { login, avatar_url } }) {
   return (

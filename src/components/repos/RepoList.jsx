@@ -2,6 +2,14 @@ import PropTypes from 'prop-types'
 
 import RepoItem from './RepoItem'
 
+/*
+ * Repo List Component
+ *
+ * @param {repos} array
+ *
+ * @return <div>
+ */
+
 function RepoList({ repos }) {
   return (
     <div className='rounded-lg shadow-lg card bg-base-100'>

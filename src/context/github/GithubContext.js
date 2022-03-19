@@ -2,13 +2,16 @@ import { createContext, useReducer } from 'react'
 
 import githubReducer from './GithubReducer'
 
+/*
+ * A context file contains the states used on the application,
+ * to modify the states we call the dispatch function with
+ * the type and payload, if required.
+ */
+
 // create the github context
 const GithubContext = createContext()
 
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
-const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
-
-// defines its functionalities
+// defines its states
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
@@ -20,20 +23,6 @@ export const GithubProvider = ({ children }) => {
   // define the github reducer
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
-  // clear search results
-  const clearSearchUsers = () => {
-    dispatch({
-      type: 'CLEAR_USERS',
-    })
-  }
-
-  // set loadin
-  const setIsLoading = () => {
-    dispatch({
-      type: 'SET_ISLOADING',
-    })
-  }
-
   // return its values,
   // we can pass all the states at once
   // with the spread operator ...state,
@@ -41,7 +30,6 @@ export const GithubProvider = ({ children }) => {
   return <GithubContext.Provider value={{
     ...state,
     dispatch,
-    clearSearchUsers,
   }}>
     { children }
   </GithubContext.Provider>

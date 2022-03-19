@@ -1,6 +1,14 @@
 import { FaEye, FaInfo, FaLink, FaStar, FaUtensils } from 'react-icons/fa'
 import PropTypes from 'prop-types'
 
+/*
+ * Repo Item Component
+ *
+ * @param {repo} object
+ *
+ * @return <div>
+ */
+
 function RepoItem({ repo }) {
   const {
     name,
